@@ -1,10 +1,39 @@
 import { SVG_NS } from '../settings'
 
 export default class Ball {
-    constructor(radius, x, y) {
+    constructor(radius, boardWidth, boardHeight) {
         this.radius = radius;
-        this.x = x;
-        this.y = y;;
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        this.direction = 1;
+
+        this.reset();
+    }
+
+    ballMove() {
+        this.x += this.vx;
+        this.y += this.vy;
+    }
+
+    wallCollision() {
+
+    }
+
+    reset() {
+        this.x = this.boardWidth/2;
+        this.y = this.boardHeight/2;
+        this.vy = 0;
+        while (this.vy === 0) {
+            this.vy = Math.floor(Math.random() * 10) - 5; //min value = -5 and max value = 5
+        }
+        this.vx = this.direction * (6 - Math.abs(this.vy));
+        //vx vy  vx vy
+        //-5 1   1 5
+        //-4 2   2 4
+        //-3 3   3 3
+        //-2 4   4 2  
+        //-1 5   5 1
+        
     }
 
     render(svg) {
@@ -15,5 +44,7 @@ export default class Ball {
         ball.setAttributeNS(null, "fill", "white");
 
         svg.appendChild(ball);
+        this.ballMove();
+        this.wallCollision();
     }
 }
