@@ -16,6 +16,14 @@ export default class Ball {
     }
 
     wallCollision() {
+        const hitTop = (this.y - this.radius <= 0);
+        const hitBottom = (this.y + this.radius >= this.boardHeight);
+        if (hitTop || hitBottom) {
+            this.vy *= -1;
+        }
+    }
+
+    paddleCollision() {
 
     }
 
@@ -33,7 +41,6 @@ export default class Ball {
         //-3 3   3 3
         //-2 4   4 2  
         //-1 5   5 1
-        
     }
 
     render(svg) {
@@ -46,5 +53,6 @@ export default class Ball {
         svg.appendChild(ball);
         this.ballMove();
         this.wallCollision();
+        this.paddleCollision();
     }
 }
