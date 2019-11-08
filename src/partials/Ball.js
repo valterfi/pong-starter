@@ -15,7 +15,7 @@ export default class Ball {
         this.y += this.vy;
     }
 
-    wallCollision() {
+    wallCollision(paddle1, paddle2) {
         const hitTop = (this.y - this.radius <= 0);
         const hitBottom = (this.y + this.radius >= this.boardHeight);
         const hitLeft = (this.x + this.radius < 0);
@@ -25,9 +25,11 @@ export default class Ball {
         }
         if (hitLeft) {
             this.direction = 1;
+            paddle2.increaseScore();
             this.reset();
         } else if (hitRight) {
             this.direction = -1;
+            paddle1.increaseScore();
             this.reset();
         }
 
@@ -45,17 +47,15 @@ export default class Ball {
             hitWall = (this.x - this.radius <= p1Walls.right);
             checkTop = (this.y - this.radius >= p1Walls.top)
             checkBottom = (this.y + this.radius <= p1Walls.bottom)
-
         }
 
         if (hitWall && checkTop && checkBottom) {
             this.vx *= -1;
-            this.direction *= -1;
         }
-
     }
 
     reset() {
+        this.direction *= -1;
         this.x = this.boardWidth / 2;
         this.y = this.boardHeight / 2;
         this.vy = 0;
@@ -80,7 +80,7 @@ export default class Ball {
 
         svg.appendChild(ball);
         this.ballMove();
-        this.wallCollision();
+        this.wallCollision(paddle1, paddle2);
         this.paddleCollision(paddle1, paddle2);
     }
 }
