@@ -15,9 +15,9 @@ export default class Game {
     const paddle2X = this.width - PADDLE_GAP - PADDLE_WIDTH;
     this.paddle1 = new Paddle(PADDLE_WIDTH, PADDLE_HEIGHT, this.height, PADDLE_GAP, paddleYMid, KEYS.p1Up, KEYS.p1Down);
     this.paddle2 = new Paddle(PADDLE_WIDTH, PADDLE_HEIGHT, this.height, paddle2X, paddleYMid, KEYS.p2Up, KEYS.p2Down);
-    this.ball = new Ball(BALL_RADIUS, this.width, this.height);
-    this.score1 = new Score((this.width/2) - 50, 30, TEXT_SIZE);
-    this.score2 = new Score((this.width/2) + 25, 30, TEXT_SIZE);
+    this.balls = this.initArrayBalls();
+    this.score1 = new Score((this.width / 2) - 50, 30, TEXT_SIZE);
+    this.score2 = new Score((this.width / 2) + 25, 30, TEXT_SIZE);
     this.paused = false;
     document.addEventListener("keydown", event => {
       if (event.key === KEYS.pause) {
@@ -30,7 +30,7 @@ export default class Game {
   }
 
   render() {
-    if (!this.paused) {
+    if (this.shouldRenderGame()) {
       this.gameElement.innerHTML = '';
 
       // More code goes here....
@@ -43,12 +43,38 @@ export default class Game {
       this.board.render(svg);
       this.paddle1.render(svg);
       this.paddle2.render(svg);
-      this.ball.render(svg, this.paddle1, this.paddle2);
+
+      this.createBalls(svg, this.paddle1, this.paddle2);
+
       this.score1.render(svg, this.paddle1.getScore());
       this.score2.render(svg, this.paddle2.getScore());
     } else {
       this.paddle1.setSpeed(0);
       this.paddle2.setSpeed(0);
     }
+  }
+
+  shouldRenderGame() {
+    return !this.paused && this.paddle1.getScore() < 10 && this.paddle2.getScore() < 10;
+  }
+
+  initArrayBalls() {
+    let balls = [];
+    for (let i = 0; i < 5; i++) {
+      balls.push(new Ball(BALL_RADIUS, this.width, this.height));
+    }
+    return balls;
+  }
+
+  createBalls(svg) {
+    let totalScore = this.paddle1.getScore() + this.paddle2.getScore();
+      if (totalScore === 0) {
+          this.balls[0].render(svg, this.paddle1, this.paddle2);
+      } else {
+         let qtd = Math.ceil(totalScore/4);
+        for (let i = 0; i < qtd; i++) {
+          this.balls[i].render(svg, this.paddle1, this.paddle2);
+        }
+      }
   }
 }
