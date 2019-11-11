@@ -61,7 +61,7 @@ export default class Game {
   initArrayBalls() {
     let balls = [];
     for (let i = 0; i < 5; i++) {
-      balls.push(new Ball(BALL_RADIUS, this.width, this.height));
+      balls.push(new Ball(this.width, this.height));
     }
     return balls;
   }

@@ -1,13 +1,14 @@
-import { SVG_NS } from '../settings'
+import { SVG_NS, RANDOM, MIN_BALL_RADIUS, MAX_BALL_RADIUS } from '../settings'
 import PingSound from '../../public/sounds/pong-01.wav';
 
 export default class Ball {
-    constructor(radius, boardWidth, boardHeight) {
-        this.radius = radius;
+    constructor(boardWidth, boardHeight) {
+        this.radius = RANDOM(MIN_BALL_RADIUS, MAX_BALL_RADIUS);
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.direction = 1;
         this.ping = new Audio(PingSound);
+        this.color = 'rgb(' + RANDOM(0, 255) + ',' + RANDOM(0, 255) + ',' + RANDOM(0, 255) + ')';
         this.reset();
     }
 
@@ -77,7 +78,7 @@ export default class Ball {
         ball.setAttributeNS(null, "r", this.radius);
         ball.setAttributeNS(null, "cx", this.x);
         ball.setAttributeNS(null, "cy", this.y);
-        ball.setAttributeNS(null, "fill", "white");
+        ball.setAttributeNS(null, "style", `fill: ${this.color}`);
 
         svg.appendChild(ball);
         this.ballMove();

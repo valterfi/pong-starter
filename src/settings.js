@@ -7,7 +7,8 @@ export const PADDLE_WIDTH = 8;
 export const PADDLE_HEIGHT = 56;
 export const PADDLE_GAP = 10;
 export const PADDLE_SPEED = 23;
-export const BALL_RADIUS = 8;
+export const MIN_BALL_RADIUS = 8;
+export const MAX_BALL_RADIUS = 16;
 
 export const TEXT_SIZE = 30;
 
@@ -17,4 +18,9 @@ export const KEYS = {
     p2Up: "ArrowUp",
     p2Down: "ArrowDown",
     pause: " "
+}
+
+export const RANDOM = function (min, max) {
+    var num = Math.floor(Math.random() * (max - min + 1)) + min;
+    return num;
 }
