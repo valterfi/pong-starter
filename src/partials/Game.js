@@ -3,6 +3,7 @@ import Board from './Board'
 import Paddle from './Paddle'
 import Ball from './Ball'
 import Score from './Score'
+import Shot from './Shot'
 
 export default class Game {
   constructor(element, width, height) {
@@ -18,15 +19,45 @@ export default class Game {
     this.balls = this.initArrayBalls();
     this.score1 = new Score((this.width / 2) - 50, 30, TEXT_SIZE);
     this.score2 = new Score((this.width / 2) + 25, 30, TEXT_SIZE);
+    this.shot1 = new Shot(16, 8, 1);
+    this.shot2 = new Shot(16, 8, -1);
     this.paused = false;
     document.addEventListener("keydown", event => {
       if (event.key === KEYS.pause) {
         this.paddle1.setSpeed(PADDLE_SPEED);
         this.paddle2.setSpeed(PADDLE_SPEED);
         this.paused = !this.paused;
+      } else if (event.key === KEYS.p1Fire) {
+        this.shot1.fire(this.paddle1);
+      } else if (event.key === KEYS.p2Fire) {
+        this.shot2.fire(this.paddle2);
       }
     });
     // Other code goes here...
+  }
+
+  shouldRenderGame() {
+    return !this.paused && this.paddle1.getScore() < 10 && this.paddle2.getScore() < 10;
+  }
+
+  initArrayBalls() {
+    let balls = [];
+    for (let i = 0; i < 5; i++) {
+      balls.push(new Ball(this.width, this.height));
+    }
+    return balls;
+  }
+
+  createBalls(svg) {
+    let totalScore = this.paddle1.getScore() + this.paddle2.getScore();
+    if (totalScore === 0) {
+      this.balls[0].render(svg, this.paddle1, this.paddle2);
+    } else {
+      let countBalls = Math.ceil(totalScore / 4);
+      for (let i = 0; i < countBalls; i++) {
+        this.balls[i].render(svg, this.paddle1, this.paddle2);
+      }
+    }
   }
 
   render() {
@@ -48,33 +79,14 @@ export default class Game {
 
       this.score1.render(svg, this.paddle1.getScore());
       this.score2.render(svg, this.paddle2.getScore());
+
+      this.shot1.render(svg);
+      this.shot2.render(svg);
+
     } else {
       this.paddle1.setSpeed(0);
       this.paddle2.setSpeed(0);
     }
   }
 
-  shouldRenderGame() {
-    return !this.paused && this.paddle1.getScore() < 10 && this.paddle2.getScore() < 10;
-  }
-
-  initArrayBalls() {
-    let balls = [];
-    for (let i = 0; i < 5; i++) {
-      balls.push(new Ball(this.width, this.height));
-    }
-    return balls;
-  }
-
-  createBalls(svg) {
-    let totalScore = this.paddle1.getScore() + this.paddle2.getScore();
-      if (totalScore === 0) {
-          this.balls[0].render(svg, this.paddle1, this.paddle2);
-      } else {
-         let qtd = Math.ceil(totalScore/4);
-        for (let i = 0; i < qtd; i++) {
-          this.balls[i].render(svg, this.paddle1, this.paddle2);
-        }
-      }
-  }
 }

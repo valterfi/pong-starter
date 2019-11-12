@@ -51,7 +51,8 @@ export default class Paddle {
             left: this.x,
             top: this.y,
             right: this.x + this.width,
-            bottom: this.y + this.height
+            bottom: this.y + this.height,
+            middle: this.y + (this.height/2)
         }
     }
 

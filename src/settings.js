@@ -15,8 +15,10 @@ export const TEXT_SIZE = 30;
 export const KEYS = {
     p1Up: "w",
     p1Down: "s",
+    p1Fire: "d",
     p2Up: "ArrowUp",
     p2Down: "ArrowDown",
+    p2Fire: "ArrowLeft",
     pause: " "
 }
 
