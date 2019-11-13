@@ -1,4 +1,4 @@
-import { SVG_NS, RANDOM, MIN_BALL_RADIUS, MAX_BALL_RADIUS } from '../settings'
+import { SVG_NS, RANDOM, MIN_BALL_RADIUS, MAX_BALL_RADIUS, RIGHT_DIRECTION } from '../settings'
 import PingSound from '../../public/sounds/pong-01.wav';
 
 export default class Ball {
@@ -6,7 +6,7 @@ export default class Ball {
         this.radius = RANDOM(MIN_BALL_RADIUS, MAX_BALL_RADIUS);
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
-        this.direction = 1;
+        this.direction = RIGHT_DIRECTION;
         this.ping = new Audio(PingSound);
         this.color = 'rgb(' + RANDOM(0, 255) + ',' + RANDOM(0, 255) + ',' + RANDOM(0, 255) + ')';
         this.reset();

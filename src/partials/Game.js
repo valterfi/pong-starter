@@ -1,4 +1,4 @@
-import { SVG_NS, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_GAP, KEYS, BALL_RADIUS, PADDLE_SPEED, TEXT_SIZE } from '../settings'
+import { SVG_NS, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_GAP, KEYS, PADDLE_SPEED, TEXT_SIZE, RIGHT_DIRECTION } from '../settings'
 import Board from './Board'
 import Paddle from './Paddle'
 import Ball from './Ball'
@@ -19,8 +19,8 @@ export default class Game {
     this.balls = this.initArrayBalls();
     this.score1 = new Score((this.width / 2) - 50, 30, TEXT_SIZE);
     this.score2 = new Score((this.width / 2) + 25, 30, TEXT_SIZE);
-    this.shot1 = new Shot(16, 8, 1);
-    this.shot2 = new Shot(16, 8, -1);
+    this.shot1 = new Shot(16, 8, RIGHT_DIRECTION);
+    this.shot2 = new Shot(16, 8, (RIGHT_DIRECTION*-1));
     this.paused = false;
     document.addEventListener("keydown", event => {
       if (event.key === KEYS.pause) {

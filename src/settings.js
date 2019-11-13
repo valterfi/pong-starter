@@ -6,9 +6,11 @@ export const BOARD_HEIGHT = 256;
 export const PADDLE_WIDTH = 8;
 export const PADDLE_HEIGHT = 56;
 export const PADDLE_GAP = 10;
-export const PADDLE_SPEED = 23;
+export const PADDLE_SPEED = 5;
 export const MIN_BALL_RADIUS = 8;
 export const MAX_BALL_RADIUS = 16;
+
+export const RIGHT_DIRECTION = 1;
 
 export const TEXT_SIZE = 30;
 

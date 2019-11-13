@@ -9,21 +9,16 @@ export default class Paddle {
         this.y = y;
         this.score = 0;
         this.speed = PADDLE_SPEED;
+        this.keyPressed = {};
+        this.upKey = upKey;
+        this.downKey = downKey;
 
-        document.addEventListener("keydown", event => {
-            switch (event.key) {
-                case upKey:
-                    console.log("up");
-                    this.moveUp();
-                    break;
-                case downKey:
-                    console.log("down");
-                    this.moveDown();
-                    break;
-                default:
-                    console.log("another key was pressed");
-            }
-        });
+        document.addEventListener('keydown',  e => {
+            this.keyPressed[e.key] = true;
+         });
+         document.addEventListener('keyup',  e => {
+            this.keyPressed[e.key] = false;
+         });
     }
 
     moveUp() {
@@ -57,6 +52,13 @@ export default class Paddle {
     }
 
     render(svg) {
+        
+        if (this.keyPressed[this.upKey]) {
+            this.moveUp();
+        } else if (this.keyPressed[this.downKey]) {
+            this.moveDown();
+        }
+
         const paddle = document.createElementNS(SVG_NS, "rect");
         paddle.setAttributeNS(null, "width", this.width);
         paddle.setAttributeNS(null, "height", this.height);
