@@ -1,5 +1,6 @@
 import { SVG_NS, RANDOM, MIN_BALL_RADIUS, MAX_BALL_RADIUS, RIGHT_DIRECTION } from '../settings'
 import PingSound from '../../public/sounds/pong-01.wav';
+import PingFireSound from '../../public/sounds/pong-02.wav';
 
 export default class Ball {
     constructor(boardWidth, boardHeight) {
@@ -8,6 +9,7 @@ export default class Ball {
         this.boardHeight = boardHeight;
         this.direction = RIGHT_DIRECTION;
         this.ping = new Audio(PingSound);
+        this.pingFire = new Audio(PingFireSound);
         this.color = 'rgb(' + RANDOM(0, 255) + ',' + RANDOM(0, 255) + ',' + RANDOM(0, 255) + ')';
         this.reset();
     }
@@ -57,6 +59,46 @@ export default class Ball {
         }
     }
 
+    shotCollision(shot) {
+        if (shot.isFired()) {
+            const shotCoodinates = shot.getCoordinates();
+            const hitTop = (this.y + this.radius >= shotCoodinates.top) && (this.y - this.radius <= shotCoodinates.top) && (this.x + this.radius >= shotCoodinates.left) && (this.x + this.radius <= shotCoodinates.right);
+            const hitBottom = (this.y + this.radius >= shotCoodinates.bottom) && (this.y - this.radius <= shotCoodinates.bottom) && (this.x + this.radius >= shotCoodinates.left) && (this.x + this.radius <= shotCoodinates.right);
+            const hitRight = (this.x - this.radius <= shotCoodinates.right) && (this.x + this.radius >= shotCoodinates.right) && (this.y + this.radius >= shotCoodinates.top) && (this.y + this.radius <= shotCoodinates.bottom);
+            const hitLeft = (this.x + this.radius >= shotCoodinates.left) && (this.x - this.radius <= shotCoodinates.left) && (this.y + this.radius >= shotCoodinates.top) && (this.y + this.radius <= shotCoodinates.bottom);
+
+            if (hitTop) {
+                this.y = shotCoodinates.top - this.radius;
+                this.changeDirection();
+                this.pingFire.play();
+            }
+
+            if (hitBottom) {
+                this.y = shotCoodinates.bottom + this.radius;
+                this.changeDirection();
+                this.pingFire.play();
+            } 
+
+            if (hitRight && shot.getDirection() > 0 && this.vx < 0) {
+                this.x = shotCoodinates.right + this.radius;
+                this.changeDirection();
+                this.pingFire.play();
+            }
+
+            if (hitLeft && shot.getDirection() < 0 && this.vx > 0) {
+                this.x = shotCoodinates.left - this.radius;
+                this.changeDirection();
+                this.pingFire.play();
+            }
+
+        }
+    }
+
+    changeDirection() {
+        this.vx *= -1;
+        this.vy *= -1;
+    }
+
     reset() {
         this.x = this.boardWidth / 2;
         this.y = this.boardHeight / 2;
@@ -73,7 +115,7 @@ export default class Ball {
         //-1 5   5 1
     }
 
-    render(svg, paddle1, paddle2) {
+    render(svg, paddle1, paddle2, shot1, shot2) {
         const ball = document.createElementNS(SVG_NS, "circle");
         ball.setAttributeNS(null, "r", this.radius);
         ball.setAttributeNS(null, "cx", this.x);
@@ -84,5 +126,7 @@ export default class Ball {
         this.ballMove();
         this.wallCollision(paddle1, paddle2);
         this.paddleCollision(paddle1, paddle2);
+        this.shotCollision(shot1);
+        this.shotCollision(shot2);
     }
 }

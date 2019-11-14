@@ -19,8 +19,8 @@ export default class Game {
     this.balls = this.initArrayBalls();
     this.score1 = new Score((this.width / 2) - 50, 30, TEXT_SIZE);
     this.score2 = new Score((this.width / 2) + 25, 30, TEXT_SIZE);
-    this.shot1 = new Shot(16, 8, RIGHT_DIRECTION);
-    this.shot2 = new Shot(16, 8, (RIGHT_DIRECTION*-1));
+    this.shot1 = new Shot(this.width, RIGHT_DIRECTION);
+    this.shot2 = new Shot(this.width, (RIGHT_DIRECTION*-1));
     this.paused = false;
     document.addEventListener("keydown", event => {
       if (event.key === KEYS.pause) {
@@ -51,11 +51,11 @@ export default class Game {
   createBalls(svg) {
     let totalScore = this.paddle1.getScore() + this.paddle2.getScore();
     if (totalScore === 0) {
-      this.balls[0].render(svg, this.paddle1, this.paddle2);
+      this.balls[0].render(svg, this.paddle1, this.paddle2, this.shot1, this.shot2);
     } else {
       let countBalls = Math.ceil(totalScore / 4);
       for (let i = 0; i < countBalls; i++) {
-        this.balls[i].render(svg, this.paddle1, this.paddle2);
+        this.balls[i].render(svg, this.paddle1, this.paddle2, this.shot1, this.shot2);
       }
     }
   }
