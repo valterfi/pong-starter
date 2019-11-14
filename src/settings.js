@@ -10,6 +10,8 @@ export const PADDLE_SPEED = 5;
 export const MIN_BALL_RADIUS = 8;
 export const MAX_BALL_RADIUS = 16;
 
+export const SCORE_WIN = 10;
+
 export const RIGHT_DIRECTION = 1;
 
 export const TEXT_SIZE = 30;

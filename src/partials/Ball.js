@@ -71,21 +71,15 @@ export default class Ball {
                 this.y = shotCoodinates.top - this.radius;
                 this.changeDirection();
                 this.pingFire.play();
-            }
-
-            if (hitBottom) {
+            } else if (hitBottom) {
                 this.y = shotCoodinates.bottom + this.radius;
                 this.changeDirection();
                 this.pingFire.play();
-            } 
-
-            if (hitRight && shot.getDirection() > 0 && this.vx < 0) {
+            } else if (hitRight && shot.getDirection() > 0 && this.vx < 0) {
                 this.x = shotCoodinates.right + this.radius;
                 this.changeDirection();
                 this.pingFire.play();
-            }
-
-            if (hitLeft && shot.getDirection() < 0 && this.vx > 0) {
+            } else if (hitLeft && shot.getDirection() < 0 && this.vx > 0) {
                 this.x = shotCoodinates.left - this.radius;
                 this.changeDirection();
                 this.pingFire.play();
