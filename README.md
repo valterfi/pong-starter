@@ -39,13 +39,10 @@ Read more about the [Parcel web application bundler here](https://parceljs.org/)
 - apply mathematical concepts with javascript
 - understand how npm projects work
 
-## Stretch Goals
+## Stretching goals accomplished
 
-- Trigger multiple balls
-![](pong-game-3.png)
+- Trigger multiple balls ![](pong-game-3.png)
 - Create balls with special effects (different speeds, sizes, effects, etc.)
 - Trigger speed changes
-- Fire a shot with sounds from a paddle on key press ('d' and 'ArrowLeft')
-![](pong-game-4.png)
-- Declare a winner at a final score
-![](pong-game-1.png)
+- Fire a shot with sounds from a paddle on key press ('d' and 'ArrowLeft') ![](pong-game-4.png)
+- Declare a winner at a final score ![](pong-game-1.png)
