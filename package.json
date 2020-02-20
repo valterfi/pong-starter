@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "An SVG Pong game.",
   "license": "ISC",
-  "author": "Your Name <email@email.com>",
+  "author": "Valterfi Oliveira <valterfi.oliveira@gmail.com>",
   "main": "src/index.js",
   "scripts": {
     "start": "parcel index.html -p 3000",
-    "predeploy": "rm -rf dist && parcel build index.html --public-url /YOUR-REPO-NAME",
+    "predeploy": "rm -rf dist && parcel build index.html --public-url /pong-starter",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
