@@ -2,6 +2,8 @@
 
 A starter project for a basic pong game using SVGs.
 
+![](pong-game-2.png)
+
 ## Setup
 
 Ensure you have [Node.js](https://nodejs.org/en/) installed first.
@@ -18,24 +20,32 @@ Once you run the start command you can access your project at http://localhost:3
 
 Read more about the [Parcel web application bundler here](https://parceljs.org/).
 
-## Deploy
+## Technologies used
 
-The deployment workflow for this project will be a bit different from what you've used when deploying simple static websites.
+* Javascript
 
-To deploy your finished Pong project as a GitHub page, you must first **update the `predeploy` script in the `package.json` file with the name of your repo.**
+* HTML
 
-For example, if your repo URL is:
+* CSS
 
-https://github.com/bob/pong-project
+* NodeJS
 
-Update the `predeploy` script as follows:
+* SVG
 
-```json
-"predeploy": "rm -rf dist && parcel build index.html --public-url /pong-project",
-```
+## Personal learnings
 
-Once you have done this, you can run:
+- create a project with object-oriented javascript
+- develop an animation with iteration of two users
+- apply mathematical concepts with javascript
+- understand how npm projects work
 
-`$ npm run deploy`
+## Stretch Goals
 
-Now check out your deployed site 🙂
+- Trigger multiple balls
+![](pong-game-3.png)
+- Create balls with special effects (different speeds, sizes, effects, etc.)
+- Trigger speed changes
+- Fire a shot with sounds from a paddle on key press ('d' and 'ArrowLeft')
+![](pong-game-4.png)
+- Declare a winner at a final score
+![](pong-game-1.png)
