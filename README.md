@@ -41,11 +41,11 @@ Read more about the [Parcel web application bundler here](https://parceljs.org/)
 
 ## Stretching goals accomplished
 
-1.   Trigger multiple balls 
+1.  Trigger multiple balls  
     ![](pong-game-3.png)
-2. Create balls with special effects (different speeds, sizes, effects, etc.)
-3.   Trigger speed changes
-4.   Fire a shot with sounds from a paddle on key press ('d' and 'ArrowLeft') 
+2.  Create balls with special effects (different speeds, sizes, effects, etc.)
+3.  Trigger speed changes
+4.  Fire a shot with sounds from a paddle on key press ('d' and 'ArrowLeft')  
     ![](pong-game-4.png)
-5.   Declare a winner at a final score 
+5.  Declare a winner at a final score  
     ![](pong-game-1.png)
